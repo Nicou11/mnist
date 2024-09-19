@@ -1,11 +1,14 @@
 [project]
 name = "mnist"
-version = "0.1.0"
+version = "0.2.0"
 description = "shape learning"
 authors = [
     {name = "Nicou11", email = "lyoungin1204@gmail.com"},
 ]
-dependencies = []
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn>=0.30.6",
+]
 requires-python = ">=3.11"
 readme = "README.md"
 license = {text = "MIT"}
