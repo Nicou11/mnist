@@ -53,11 +53,12 @@ async def create_upload_file(file: UploadFile):
                         cursorclass=pymysql.cursors.DictCursor)
 
     sql = "INSERT INTO image_processing (file_name, file_path, request_time, request_user) VALUES (%s, %s, %s, %s)"
-
-    with con:
-        with con.cursor() as cursor:
-            cursor.execute(sql, (file_name, ffpath, jigu.now(), "n06"))
-        con.commit()
+    from mnist.db import dml
+    insert_row = dml(sql, (file_name, ffpath, jigu.now(), "n06"))
+    #with con:
+    #    with con.cursor() as cursor:
+    #        cursor.execute(sql, (file_name, ffpath, jigu.now(), "n06"))
+    #    con.commit()
 
 
     # 파일 저장 경로 DB INSERT
@@ -85,6 +86,7 @@ def all():
 def one():
     # DB 연결 SELECT 값 중 하나만 리턴
     # 결과값 리턴
+    from mnist.db import select
     sql = """SELECT * FROM image_processing WHERE prediction_time IS NULL ORDER BY num LIMIT 1"""
     result = select(query=sql, size=1)
     return result[0] 
