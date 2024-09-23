@@ -45,20 +45,21 @@ async def create_upload_file(file: UploadFile):
     with open(ffpath, "wb") as f:
         f.write(img)
 
+    """
     con = pymysql.connect(host="172.17.0.1",
                         port= 53306,
                         user='mnist',
                         password='1234',
                         db='mnistdb',
                         cursorclass=pymysql.cursors.DictCursor)
-
+    """
     sql = "INSERT INTO image_processing (file_name, file_path, request_time, request_user) VALUES (%s, %s, %s, %s)"
     from mnist.db import dml
-    insert_row = dml(sql, (file_name, ffpath, jigu.now(), "n06"))
+    insert_row = dml(sql, file_name, ffpath, jigu.now(), "n06")
     #with con:
-    #    with con.cursor() as cursor:
-    #        cursor.execute(sql, (file_name, ffpath, jigu.now(), "n06"))
-    #    con.commit()
+     #   with con.cursor() as cursor:
+      #      cursor.execute(sql, (file_name, ffpath, jigu.now(), "n06"))
+       # con.commit()
 
 
     # 파일 저장 경로 DB INSERT
@@ -71,6 +72,7 @@ async def create_upload_file(file: UploadFile):
             "filename": file_name,
             "content_type": file.content_type,
             "file_path": ffpath,
+            "insert_row_cont": insert_row
             }
 
 @app.get("/all")
@@ -94,7 +96,12 @@ def one():
 @app.get("/many/")
 def many(size: int = -1):
     
-    con = pymysql.connect(host="172.17.0.1",                                                               port= 53306,                                                                       user='mnist',                                                                      password='1234',                                                                   db='mnistdb',                                                                      cursorclass=pymysql.cursors.DictCursor)
+    con = pymysql.connect(host="172.17.0.1", 
+                        port= 53306,
+                        user='mnist',
+                        password='1234',
+                        db='mnistdb',
+                        cursorclass=pymysql.cursors.DictCursor)
     sql = "SELECT * FROM image_processing WHERE prediction_time IS NULL ORDER BY num"
     
     with con:
