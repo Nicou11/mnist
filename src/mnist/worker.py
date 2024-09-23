@@ -49,13 +49,18 @@ def run():
     presult = prediction(file_path, num)
   # STEP 3
   # LINE 으로 처리 결과 전송
-    #send_line_noti(file_name, presult)
+    send_line_noti(file_name, presult)
 
     print(jigu.now())
 
-#def send_line_noti(file_name, presult):
-#    api = "http://notify-api.line.me/api/notify"
-#    token = os.getenv('LINE_NOTI_TOKEN', 'NULL')
-#    header = {'Authorization': 'Bearer' + token}
+def send_line_noti(file_name, presult):
+    api = "http://notify-api.line.me/api/notify"
+    token = os.getenv('LINE_NOTI_TOKEN', '0KioCnNr9sgdvJmy7ZoXS1k79f1q6W8qXA7DZ3Vw19r')
+    h = {'Authorization': 'Bearer' + token}
+    msg = {
+            "message" : f"{file_name} => {presult}"
+    }
+    requests.post(api, headers=h, data=msg)
+    print("SEND NOTI")
 
 
