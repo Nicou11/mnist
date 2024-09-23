@@ -1,5 +1,5 @@
 from jigutime import jigu
-from mnist.db import conn, select, dml
+from mnist.db import get_conn, select, dml
 
 def run():
   """image_processing 테이블을 읽어서 가장 오래된 요청 하나씩을 처리"""
