@@ -6,14 +6,13 @@ def run():
 
   # STEP 1
   # image_processing 테이블의 prediction_result IS NULL 인 ROW 1 개 조회 - num 갖여오기
-
-    sql = """
+    sql = "
     SELECT * 
     FROM image_processing
     WHERE prediction_result IS NULL
     ORDER BY num 
     LIMIT 1
-    """
+    "
 
     result = select(query=sql, size=1)
     return result[0]
