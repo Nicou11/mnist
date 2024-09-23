@@ -1,7 +1,7 @@
 [project]
 name = "mnist"
-version = "0.2.0"
-description = "shape learning"
+version = "0.3.0"
+description = "MNIST database"
 authors = [
     {name = "Nicou11", email = "lyoungin1204@gmail.com"},
 ]
@@ -21,6 +21,11 @@ license = {text = "MIT"}
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
+[tool.pytest.ini_options]
+pythonpath = "src"
 
 [tool.pdm]
 distribution = true
+
+[project.scripts]
+ml-worker = "mnist.worker:run"
