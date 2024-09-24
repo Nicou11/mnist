@@ -55,7 +55,7 @@ def run():
 
 def send_line_noti(file_name, presult):
     api = "http://notify-api.line.me/api/notify"
-    token = os.getenv('LINE_NOTI_TOKEN', '0KioCnNr9sgdvJmy7ZoXS1k79f1q6W8qXA7DZ3Vw19r')
+    token = os.getenv('LINE_KEY', 'false')
     h = {'Authorization': 'Bearer' + token}
     msg = {
             "message" : f"{file_name} => {presult}"
