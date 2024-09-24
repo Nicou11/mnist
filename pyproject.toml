@@ -1,6 +1,6 @@
 [project]
 name = "mnist"
-version = "0.3.333"
+version = "0.3.4"
 description = "MNIST database"
 authors = [
     {name = "Nicou11", email = "lyoungin1204@gmail.com"},
@@ -12,6 +12,7 @@ dependencies = [
     "pymysql>=1.1.1",
     "pytz>=2024.2",
     "jigutime>=0.2.1",
+    "requests>=2.32.3",
 ]
 requires-python = ">=3.11"
 readme = "README.md"
