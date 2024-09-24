@@ -14,5 +14,4 @@ RUN chmod +x /code/run.sh
 
 RUN pip install --no-cache-dir --upgrade git+https://github.com/nicou11/mnist.git@0.3/cron
 
-CMD service cron start;uvicorn main:app --host 0.0.0.0 --port 8080 --reload
-#CMD ["sh", "run.sh"]
+CMD ["sh", "run.sh"]
