@@ -10,6 +10,8 @@ RUN crontab /etc/cron.d/ml-work-cronjob
 COPY src/mnist/main.py /code/
 COPY run.sh /code/run.sh
 
+RUN chmod +x /code/run.sh
+
 RUN pip install --no-cache-dir --upgrade git+https://github.com/nicou11/mnist.git@0.3/cron
 
 
