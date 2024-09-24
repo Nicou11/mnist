@@ -54,13 +54,12 @@ def run():
     print(jigu.now())
 
 def send_line_noti(file_name, presult):
-    api = "http://notify-api.line.me/api/notify"
-    token = os.getenv('LINE_KEY', 'false')
-    h = {'Authorization': 'Bearer' + token}
+    api = "https://notify-api.line.me/api/notify"
+    token = os.getenv('LINE_KEY', 'NULL')
+    h = {'Authorization':'Bearer ' + token}
     msg = {
-            "message" : f"{file_name} => {presult}"
+       "message" : f"{file_name} => {presult}"
     }
-    requests.post(api, headers=h, data=msg)
-    print("SEND NOTI")
-
+    response = requests.post(api, headers=h , data=msg)
+    print("SEND LINE NOTI")
 

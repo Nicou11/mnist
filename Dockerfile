@@ -4,6 +4,7 @@ WORKDIR /code
 
 RUN apt update
 RUN apt install -y cron
+RUN apt install -y vim
 COPY ml-work-cronjob /etc/cron.d/ml-work-cronjob
 RUN crontab /etc/cron.d/ml-work-cronjob
 
@@ -12,6 +13,7 @@ COPY run.sh /code/run.sh
 
 RUN chmod +x /code/run.sh
 
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir --upgrade git+https://github.com/nicou11/mnist.git@0.3/cron
 
 CMD ["sh", "run.sh"]
