@@ -1,6 +1,7 @@
 from jigutime import jigu
 from mnist.db import get_conn, select, dml
-
+import os
+import requests
 
 def get_job_img_task():
     sql = """
