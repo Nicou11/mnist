@@ -2,6 +2,7 @@ from jigutime import jigu
 from mnist.db import get_conn, select, dml
 import os
 import requests
+import glob
 
 def get_job_img_task():
     sql = """
@@ -18,18 +19,23 @@ def get_job_img_task():
     else:
         return None
 
-def prediction(file_path, num):
+def prediction(file_path):
     sql = """UPDATE image_processing
     SET prediction_result=%s,
         prediction_model='n06',
         prediction_time=%s
     WHERE num=%s
     """
-    import random
+    file_path = '/home/young12/code/mnist/img'
+    image_paths = glob.glob(os.path.join(file_path, '*.png'))
 
-    presult = random.randint(0, 9)
-    dml(sql, presult, jigu.now(), num)
-    return presult
+    img = preprocess_image(file_path)
+    prediction = model.predict(img)
+    digit = np.argmax(prediction)
+
+    dml(sql, presult, jigu.now(), digit)
+    predicted_digit = predict_digit(file_path)
+    print(f"파일 {os.path.basename(file_path)}의 예측된 숫자: {predicted_digit}")
 
 def run():
   #"""image_processing 테이블을 읽어서 가장 오래된 요청 하나씩을 처리"""
@@ -41,7 +47,7 @@ def run():
         print(f"{jigu.now()} - job is None")
         return  
 
-    num = job['num']
+    digit = job['digit']
     file_name = job['file_name']
     file_path = job['file_path']
   # STEP 2
