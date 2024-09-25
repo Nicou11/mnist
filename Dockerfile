@@ -8,9 +8,9 @@ RUN apt install -y vim
 COPY ml-work-cronjob /etc/cron.d/ml-work-cronjob
 RUN crontab /etc/cron.d/ml-work-cronjob
 
-COPY note/train_img /code/train_img/
+#COPY src/mnist/model/ /code/
+#COPY note/train_img /code/train_img/
 COPY src/mnist/main.py /code/
-COPY src/mnist/model/ /code/
 COPY run.sh /code/run.sh
 
 RUN chmod +x /code/run.sh

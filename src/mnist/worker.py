@@ -22,8 +22,6 @@ def get_job_img_task():
     else:
         return None
 
-#model_path = get_keras_path()
-model = load_model(get_keras_path()) # 학습된 모델 파일 경로
 
 # 사용자 이미지 불러오기 및 전처리
 def preprocess_image(image_path):
@@ -39,6 +37,9 @@ def preprocess_image(image_path):
     return img
 
 def predict_digit(image_path):
+    #model_path = get_keras_path()
+    model = load_model(get_keras_path()) # 학습된 모델 파일 경로
+
     img = preprocess_image(image_path)
     prediction = model.predict(img)
     digit = np.argmax(prediction)
@@ -75,10 +76,10 @@ def run():
   # STEP 2
   # RANDOM 으로 0 ~ 9 중 하나 값을 prediction_result 컬럼에 업데이트
   # 동시에 prediction_model, prediction_time 도 업데이트
-    presult = prediction(file_path, num)
+    run_result = prediction(file_path, num)
   # STEP 3
   # LINE 으로 처리 결과 전송
-    send_line_noti(file_name, presult)
+    send_line_noti(file_name, run_result)
     print(jigu.now())
 
 def send_line_noti(file_name, presult):
@@ -91,4 +92,5 @@ def send_line_noti(file_name, presult):
     response = requests.post(api, headers=h , data=msg)
     print("SEND LINE NOTI")
 
-#prediction('/home/young12/code/mnist/img/test_2.png', 1)
+prediction('/home/young12/code/mnist/img/test_1.png', 1)
+run()
