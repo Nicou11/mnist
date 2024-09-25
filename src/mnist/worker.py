@@ -4,12 +4,13 @@ import os
 import requests
 import numpy as np
 from PIL import Image
+from tensorflow.keras.datasets import mnist
 from tensorflow.keras.models import load_model
 from mnist.model.manager import get_keras_path
 
 def get_job_img_task():
     sql = """
-    SELECT num, file_name, file_path
+    SELECT num, file_name, file_path, label
     FROM image_processing 
     WHERE prediction_result IS NULL
     ORDER BY num -- 가장 오래된 요청
@@ -73,24 +74,25 @@ def run():
     num = job['num']
     file_name = job['file_name']
     file_path = job['file_path']
+    label = job['label']
   # STEP 2
   # RANDOM 으로 0 ~ 9 중 하나 값을 prediction_result 컬럼에 업데이트
   # 동시에 prediction_model, prediction_time 도 업데이트
     run_result = prediction(file_path, num)
   # STEP 3
   # LINE 으로 처리 결과 전송
-    send_line_noti(file_name, run_result)
+    send_line_noti(file_name, run_result, label)
     print(jigu.now())
 
-def send_line_noti(file_name, presult):
+def send_line_noti(file_name, presult, label):
     api = "https://notify-api.line.me/api/notify"
     token = os.getenv('LINE_KEY', 'NULL')
     h = {'Authorization':'Bearer ' + token}
     msg = {
-       "message" : f"{file_name} => {presult}"
+       "message" : f"{file_name} / label={label}=> 예측 값은 {presult}입니다."
     }
     response = requests.post(api, headers=h , data=msg)
     print("SEND LINE NOTI")
 
-#prediction('/home/young12/code/mnist/img/test_1.png', 1)
-#run()
+prediction('/home/young12/code/mnist/img/test_1.png', 1)
+run()

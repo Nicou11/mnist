@@ -27,7 +27,7 @@ async def file_list():
     return result
 
 @app.post("/uploadfile/")
-async def create_upload_file(file: UploadFile):
+async def create_upload_file(file: UploadFile, label:int):
     # 파일 저장
     korea = datetime.now(pytz.timezone('Asia/Seoul'))
     request_time = korea.strftime('%Y-%m-%d %H:%M:%S')
@@ -53,9 +53,9 @@ async def create_upload_file(file: UploadFile):
                         db='mnistdb',
                         cursorclass=pymysql.cursors.DictCursor)
     """
-    sql = "INSERT INTO image_processing (file_name, file_path, request_time, request_user) VALUES (%s, %s, %s, %s)"
+    sql = "INSERT INTO image_processing (file_name, file_path, request_time, request_user, label) VALUES (%s, %s, %s, %s, %s)"
     from mnist.db import dml
-    insert_row = dml(sql, file_name, ffpath, jigu.now(), "n06")
+    insert_row = dml(sql, file_name, ffpath, jigu.now(), "n06", label)
     #with con:
      #   with con.cursor() as cursor:
       #      cursor.execute(sql, (file_name, ffpath, jigu.now(), "n06"))
@@ -72,7 +72,8 @@ async def create_upload_file(file: UploadFile):
             "filename": file_name,
             "content_type": file.content_type,
             "file_path": ffpath,
-            "insert_row_cont": insert_row
+            "insert_row_cont": insert_row,
+            "label": label,
             }
 
 @app.get("/all")
