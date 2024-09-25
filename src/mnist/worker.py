@@ -92,5 +92,5 @@ def send_line_noti(file_name, presult):
     response = requests.post(api, headers=h , data=msg)
     print("SEND LINE NOTI")
 
-prediction('/home/young12/code/mnist/img/test_1.png', 1)
-run()
+#prediction('/home/young12/code/mnist/img/test_1.png', 1)
+#run()
