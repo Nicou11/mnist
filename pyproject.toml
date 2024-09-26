@@ -1,13 +1,26 @@
 [project]
 name = "mnist"
-version = "0.2.0"
-description = "shape learning"
+version = "0.4.1"
+description = "MNIST database"
 authors = [
     {name = "Nicou11", email = "lyoungin1204@gmail.com"},
 ]
 dependencies = [
     "fastapi>=0.115.0",
     "uvicorn>=0.30.6",
+    "python-multipart>=0.0.9",
+    "pymysql>=1.1.1",
+    "pytz>=2024.2",
+    "jigutime>=0.2.1",
+    "requests>=2.32.3",
+    "pillow>=10.4.0",
+    "tensorflow>=2.17.0",
+    "keras>=3.5.0",
+    "matplotlib>=3.9.2",
+    "scikit-learn>=1.5.2",
+    "scikit-image>=0.24.0",
+    "opencv-python>=4.10.0.84",
+    "pydot>=3.0.1",
 ]
 requires-python = ">=3.11"
 readme = "README.md"
@@ -17,6 +30,18 @@ license = {text = "MIT"}
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
+[tool.pytest.ini_options]
+pythonpath = "src"
 
 [tool.pdm]
 distribution = true
+
+[tool.pdm.dev-dependencies]
+test = [
+    "pytest>=8.3.3",
+]
+note = [
+    "notebook>=7.2.2",
+]
+[project.scripts]
+ml-worker = "mnist.worker:run"
