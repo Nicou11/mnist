@@ -16,6 +16,6 @@ COPY run.sh /code/run.sh
 RUN chmod +x /code/run.sh
 
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir --upgrade git+https://github.com/nicou11/mnist.git@0.4/model
+RUN pip install --no-cache-dir --upgrade git+https://github.com/nicou11/mnist.git@0.5/code
 
 CMD ["sh", "run.sh"]
