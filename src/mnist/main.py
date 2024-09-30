@@ -1,5 +1,5 @@
 from typing import Annotated
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, Form
 from datetime import datetime
 from jigutime import jigu
 import os
@@ -12,7 +12,7 @@ app = FastAPI()
 def test():
     return {"Test": "Done"}
 
-@app.get("/files")
+@app.post("/files")
 async def file_list():
     conn = pymysql.connect(host='172.17.0.1', port = 53306,
                             user = 'mnist', password = '1234',
@@ -27,7 +27,7 @@ async def file_list():
     return result
 
 @app.post("/uploadfile/")
-async def create_upload_file(file: UploadFile, label:int):
+async def create_upload_file(file: UploadFile, label: Annotated[int, Form()]):
     # 파일 저장
     korea = datetime.now(pytz.timezone('Asia/Seoul'))
     request_time = korea.strftime('%Y-%m-%d %H:%M:%S')
